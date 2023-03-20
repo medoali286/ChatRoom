@@ -36,7 +36,7 @@ public class MessageDetailsFragment extends Fragment {
 
         DetailsLayoutBinding binding=DetailsLayoutBinding.inflate(inflater);
 
-binding.getRoot().setBackgroundColor(Color.WHITE);
+        binding.getRoot().setBackgroundColor(Color.WHITE);
         binding.detailsMessage.setText("Message : "+selected.getMessage());
         binding.detailsTime.setText("Time : "+selected.getTimeSent());
         binding.detailsSendReceive.setText("is send : " +String.valueOf(selected.isSentButton()));
