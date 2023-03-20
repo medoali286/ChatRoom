@@ -1,8 +1,10 @@
-package com.cst2335.chatroom;
+package com.cst2335.chatroom.UI;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +25,7 @@ import com.cst2335.chatroom.Data.ChatMessage;
 import com.cst2335.chatroom.Data.ChatMessageDAO;
 import com.cst2335.chatroom.Data.ChatViewModel;
 import com.cst2335.chatroom.Data.MessageDatabase;
+import com.cst2335.chatroom.R;
 import com.cst2335.chatroom.databinding.ActivityChatRoomBinding;
 import com.cst2335.chatroom.databinding.ReceiveMessagesBinding;
 import com.cst2335.chatroom.databinding.SentMessageBinding;
@@ -42,6 +45,9 @@ public class ChatRoom extends AppCompatActivity {
    private ChatMessageDAO mDAO;
    private Executor thread;
 
+    private  ChatViewModel chatModel;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,9 +58,10 @@ public class ChatRoom extends AppCompatActivity {
 
         ActivityChatRoomBinding binding=ActivityChatRoomBinding.inflate(getLayoutInflater());
 
-        ChatViewModel chatModel = new ViewModelProvider(this).get(ChatViewModel.class);
+         chatModel = new ViewModelProvider(this).get(ChatViewModel.class);
 
-            messages= chatModel.messages.getValue();
+
+         messages= chatModel.messages.getValue();
 
             if (messages==null){
 
@@ -96,6 +103,27 @@ public class ChatRoom extends AppCompatActivity {
                 });
 
             }
+
+
+
+        chatModel.selectedMessage.observe(this, (newMessageValue) -> {
+
+            Log.i("tag", "onCreate: "+newMessageValue.getMessage());
+
+
+
+            MessageDetailsFragment chatFragment = new MessageDetailsFragment(newMessageValue);
+
+
+           getSupportFragmentManager().beginTransaction().replace(R.id.fragmentLocation ,chatFragment).addToBackStack("").commit();
+
+
+
+
+        });
+
+
+
 
 
 
@@ -259,6 +287,26 @@ public class ChatRoom extends AppCompatActivity {
 
 
 
+
+
+
+
+                int position = getAbsoluteAdapterPosition();
+                ChatMessage selected = messages.get(position);
+                chatModel.selectedMessage.postValue(selected);
+
+
+
+
+
+
+
+
+
+
+
+
+/*
                 AlertDialog.Builder builder=new AlertDialog.Builder(ChatRoom.this);
                 builder.setMessage("Do you want to Delete this message : "+messageText.getText()).
                         setTitle("Question").
@@ -297,7 +345,7 @@ public class ChatRoom extends AppCompatActivity {
 
                         }).create().show();
 
-
+*/
 
 
 
