@@ -2,7 +2,9 @@ package com.cst2335.chatroom.UI;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -11,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.cst2335.chatroom.Data.ChatMessage;
+import com.cst2335.chatroom.R;
 import com.cst2335.chatroom.databinding.DetailsLayoutBinding;
 
 public class MessageDetailsFragment extends Fragment {
@@ -25,9 +28,19 @@ public class MessageDetailsFragment extends Fragment {
     }
 
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+         super.onOptionsItemSelected(item);
 
 
 
+
+
+
+
+
+        return true;
+    }
 
     @Nullable
     @Override
