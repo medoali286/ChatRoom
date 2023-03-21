@@ -56,7 +56,7 @@ public class ChatRoom extends AppCompatActivity {
 
 TextView tv_message;
 
-boolean CanDelete;
+boolean IsSelected;
 
 
     @Override
@@ -84,7 +84,7 @@ boolean CanDelete;
                     Log.i("tag1", "onOptionsItemSelected: chat room");
 
 
-                    if (messages.size() != 0 && CanDelete) {
+                    if (messages.size() != 0 && IsSelected) {
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(ChatRoom.this);
                         builder.setMessage("Do you want to Delete this message : " + tv_message.getText().toString()).
@@ -116,7 +116,7 @@ boolean CanDelete;
                                     onBackPressed();
 
 
-                                    CanDelete = false;
+                                    IsSelected = false;
 
 
                                 }).create().show();
@@ -412,9 +412,9 @@ boolean CanDelete;
                 position = getAbsoluteAdapterPosition();
                 ChatMessage selected = messages.get(position);
                 chatModel.selectedMessage.postValue(selected);
-tv_message=messageText;
+                tv_message=messageText;
 
-CanDelete=true;
+                IsSelected=true;
 
 
 
